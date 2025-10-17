@@ -1,7 +1,13 @@
-import { TonClient, Address as TonAddress, beginCell, toNano } from '@ton/core';
-import { CertificationNFT } from './CertificationNFT';
-import type { ContractState, Token } from '@/types';
-import { CONTRACT_ADDRESS, TESTNET_ENDPOINT, OPCODES, TX_CONFIG } from '../constants';
+import { beginCell, Address as TonAddress, toNano } from "@ton/core";
+import { TonClient } from "@ton/ton";
+import type { ContractState, Token } from "@/types";
+import {
+  CONTRACT_ADDRESS,
+  OPCODES,
+  TESTNET_ENDPOINT,
+  TX_CONFIG,
+} from "../constants";
+import { CertificationNFT } from "./CertificationNFT";
 
 export class ContractService {
   private client: TonClient;
@@ -20,11 +26,11 @@ export class ContractService {
   async getState(): Promise<ContractState> {
     try {
       const contract = this.client.open(
-        CertificationNFT.fromAddress(this.contractAddress)
+        CertificationNFT.fromAddress(this.contractAddress),
       );
 
       const state = await contract.getState();
-      
+
       return {
         owner: state.owner.toString(),
         total: state.total,
@@ -32,8 +38,8 @@ export class ContractService {
         base_uri: state.base_uri,
       };
     } catch (error) {
-      console.error('Error fetching contract state:', error);
-      throw new Error('Failed to fetch contract state');
+      console.error("Error fetching contract state:", error);
+      throw new Error("Failed to fetch contract state");
     }
   }
 
@@ -43,12 +49,12 @@ export class ContractService {
   async isAdmin(address: string): Promise<boolean> {
     try {
       const contract = this.client.open(
-        CertificationNFT.fromAddress(this.contractAddress)
+        CertificationNFT.fromAddress(this.contractAddress),
       );
 
       return await contract.getIsAdmin(TonAddress.parse(address));
     } catch (error) {
-      console.error('Error checking admin status:', error);
+      console.error("Error checking admin status:", error);
       return false;
     }
   }
@@ -59,11 +65,11 @@ export class ContractService {
   async getToken(id: bigint): Promise<Token | null> {
     try {
       const contract = this.client.open(
-        CertificationNFT.fromAddress(this.contractAddress)
+        CertificationNFT.fromAddress(this.contractAddress),
       );
 
       const token = await contract.getToken(id);
-      
+
       if (!token) return null;
 
       return {
@@ -71,7 +77,7 @@ export class ContractService {
         metadata: token.metadata.toString(),
       };
     } catch (error) {
-      console.error('Error fetching token:', error);
+      console.error("Error fetching token:", error);
       return null;
     }
   }
@@ -82,13 +88,13 @@ export class ContractService {
   async getTokenUri(id: bigint): Promise<string> {
     try {
       const contract = this.client.open(
-        CertificationNFT.fromAddress(this.contractAddress)
+        CertificationNFT.fromAddress(this.contractAddress),
       );
 
       return await contract.getTokenUri(id);
     } catch (error) {
-      console.error('Error fetching token URI:', error);
-      throw new Error('Failed to fetch token URI');
+      console.error("Error fetching token URI:", error);
+      throw new Error("Failed to fetch token URI");
     }
   }
 
@@ -104,11 +110,13 @@ export class ContractService {
 
     return {
       validUntil: Math.floor(Date.now() / 1000) + TX_CONFIG.validUntil,
-      messages: [{
-        address: CONTRACT_ADDRESS,
-        amount: toNano(TX_CONFIG.mintValue).toString(),
-        payload: body.toBoc().toString('base64'),
-      }],
+      messages: [
+        {
+          address: CONTRACT_ADDRESS,
+          amount: toNano(TX_CONFIG.mintValue).toString(),
+          payload: body.toBoc().toString("base64"),
+        },
+      ],
     };
   }
 
@@ -123,11 +131,13 @@ export class ContractService {
 
     return {
       validUntil: Math.floor(Date.now() / 1000) + TX_CONFIG.validUntil,
-      messages: [{
-        address: CONTRACT_ADDRESS,
-        amount: toNano(TX_CONFIG.addAdminValue).toString(),
-        payload: body.toBoc().toString('base64'),
-      }],
+      messages: [
+        {
+          address: CONTRACT_ADDRESS,
+          amount: toNano(TX_CONFIG.addAdminValue).toString(),
+          payload: body.toBoc().toString("base64"),
+        },
+      ],
     };
   }
 }

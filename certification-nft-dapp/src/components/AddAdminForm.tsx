@@ -1,35 +1,35 @@
-import { useState, FormEvent } from 'react';
-import { Shield, Loader2 } from 'lucide-react';
-import { useContract } from '@/hooks/useContract';
-import { validateAddress } from '@/lib/utils/address';
+import { Loader2, Shield } from "lucide-react";
+import { type FormEvent, useState } from "react";
+import { useContract } from "@/hooks/useContract";
+import { validateAddress } from "@/lib/utils/address";
 
 interface AddAdminFormProps {
   onSuccess?: () => void;
 }
 
 export const AddAdminForm = ({ onSuccess }: AddAdminFormProps) => {
-  const [address, setAddress] = useState('');
-  const [validationError, setValidationError] = useState('');
+  const [address, setAddress] = useState("");
+  const [validationError, setValidationError] = useState("");
   const { addAdmin, loading, error } = useContract();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setValidationError('');
+    setValidationError("");
 
     if (!address.trim()) {
-      setValidationError('Please enter an admin address');
+      setValidationError("Please enter an admin address");
       return;
     }
 
     if (!validateAddress(address)) {
-      setValidationError('Invalid TON address format');
+      setValidationError("Invalid TON address format");
       return;
     }
 
     const result = await addAdmin(address);
-    
+
     if (result.success) {
-      setAddress('');
+      setAddress("");
       onSuccess?.();
     }
   };
@@ -49,7 +49,10 @@ export const AddAdminForm = ({ onSuccess }: AddAdminFormProps) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="admin-address" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="admin-address"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               New Admin Address
             </label>
             <input
@@ -58,7 +61,7 @@ export const AddAdminForm = ({ onSuccess }: AddAdminFormProps) => {
               value={address}
               onChange={(e) => {
                 setAddress(e.target.value);
-                setValidationError('');
+                setValidationError("");
               }}
               placeholder="EQ..."
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-shadow"

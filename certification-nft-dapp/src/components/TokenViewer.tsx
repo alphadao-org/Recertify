@@ -1,11 +1,11 @@
-import { useState, FormEvent } from 'react';
-import { Search, Loader2, Award, ExternalLink } from 'lucide-react';
-import { useMetadata } from '@/hooks/useMetadata';
-import { parseTokenId } from '@/lib/utils/format';
-import type { Token, NFTMetadata } from '@/types';
+import { Award, ExternalLink, Loader2, Search } from "lucide-react";
+import { type FormEvent, useState } from "react";
+import { useMetadata } from "@/hooks/useMetadata";
+import { parseTokenId } from "@/lib/format";
+import type { NFTMetadata, Token } from "@/types";
 
 export const TokenViewer = () => {
-  const [tokenId, setTokenId] = useState('');
+  const [tokenId, setTokenId] = useState("");
   const [token, setToken] = useState<Token | null>(null);
   const [metadata, setMetadata] = useState<NFTMetadata | null>(null);
   const { fetchToken, loading, error } = useMetadata();
@@ -13,7 +13,7 @@ export const TokenViewer = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!tokenId || isNaN(Number(tokenId))) {
+    if (!tokenId || Number.isNaN(Number(tokenId))) {
       return;
     }
 
@@ -30,7 +30,9 @@ export const TokenViewer = () => {
   return (
     <div className="bg-white rounded-lg shadow-sm border">
       <div className="p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">View Certificate</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-4">
+          View Certificate
+        </h2>
 
         <form onSubmit={handleSubmit} className="mb-6">
           <div className="flex gap-2">
@@ -68,23 +70,38 @@ export const TokenViewer = () => {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{metadata.name}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    {metadata.name}
+                  </h3>
                   <p className="text-gray-600">{metadata.description}</p>
                 </div>
 
                 <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Student Address</p>
-                  <p className="text-xs text-gray-900 font-mono break-all">{token.student}</p>
+                  <p className="text-sm font-medium text-gray-700 mb-2">
+                    Student Address
+                  </p>
+                  <p className="text-xs text-gray-900 font-mono break-all">
+                    {token.student}
+                  </p>
                 </div>
 
                 {metadata.attributes.length > 0 && (
                   <div>
-                    <p className="text-sm font-medium text-gray-700 mb-3">Attributes</p>
+                    <p className="text-sm font-medium text-gray-700 mb-3">
+                      Attributes
+                    </p>
                     <div className="grid grid-cols-2 gap-3">
                       {metadata.attributes.map((attr, idx) => (
-                        <div key={idx} className="bg-gray-50 p-3 rounded-lg border border-gray-200">
-                          <p className="text-xs text-gray-500 mb-1">{attr.trait_type}</p>
-                          <p className="text-sm font-medium text-gray-900">{attr.value}</p>
+                        <div
+                          key={idx}
+                          className="bg-gray-50 p-3 rounded-lg border border-gray-200"
+                        >
+                          <p className="text-xs text-gray-500 mb-1">
+                            {attr.trait_type}
+                          </p>
+                          <p className="text-sm font-medium text-gray-900">
+                            {attr.value}
+                          </p>
                         </div>
                       ))}
                     </div>
@@ -100,7 +117,7 @@ export const TokenViewer = () => {
                       alt={metadata.name}
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
+                        (e.target as HTMLImageElement).style.display = "none";
                       }}
                     />
                   ) : (
@@ -126,4 +143,3 @@ export const TokenViewer = () => {
     </div>
   );
 };
-      

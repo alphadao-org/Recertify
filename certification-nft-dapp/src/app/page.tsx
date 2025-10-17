@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
-import { Award, Shield, User } from 'lucide-react';
-import { ContractState } from '@/components/ContractState';
-import { MintForm } from '@/components/MintForm';
-import { AddAdminForm } from '@/components/AddAdminForm';
-import { TokenViewer } from '@/components/TokenViewer';
-import { useContractState } from '@/hooks/useContractState';
-import { CONTRACT_ADDRESS } from '@/lib/constants';
-import { useState } from 'react';
+import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import { Award, Shield, User } from "lucide-react";
+import { useState } from "react";
+import { AddAdminForm } from "@/components/AddAdminForm";
+import { ContractState } from "@/components/ContractState";
+import { MintForm } from "@/components/MintForm";
+import { TokenViewer } from "@/components/TokenViewer";
+import { useContractState } from "@/hooks/useContractState";
+import { CONTRACT_ADDRESS } from "@/lib/constants";
 
 export default function Home() {
   const userAddress = useTonAddress();
@@ -33,7 +33,9 @@ export default function Home() {
                 <Award className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">CertificationNFT</h1>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  CertificationNFT
+                </h1>
                 <p className="text-sm text-gray-500">TON Testnet</p>
               </div>
             </div>
@@ -76,19 +78,21 @@ export default function Home() {
         {/* Admin Controls */}
         {userAddress && (isAdmin || isOwner) && (
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Admin Controls</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Admin Controls
+            </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {isAdmin && (
                 <MintForm
                   onSuccess={() =>
-                    handleTransactionSuccess('Certificate minted successfully!')
+                    handleTransactionSuccess("Certificate minted successfully!")
                   }
                 />
               )}
               {isOwner && (
                 <AddAdminForm
                   onSuccess={() =>
-                    handleTransactionSuccess('Admin added successfully!')
+                    handleTransactionSuccess("Admin added successfully!")
                   }
                 />
               )}
@@ -98,7 +102,9 @@ export default function Home() {
 
         {/* Token Viewer */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Certificate Explorer</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Certificate Explorer
+          </h2>
           <TokenViewer />
         </div>
 
@@ -121,7 +127,9 @@ export default function Home() {
             <div className="p-3 bg-blue-100 rounded-lg w-fit mb-3">
               <Award className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">Blockchain Certificates</h3>
+            <h3 className="font-bold text-gray-900 mb-2">
+              Blockchain Certificates
+            </h3>
             <p className="text-sm text-gray-600">
               Immutable, verifiable certificates stored on the TON blockchain
             </p>
@@ -154,8 +162,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-2">
             <p className="text-sm text-gray-600">
-              <span className="font-medium">Contract Address:</span>{' '}
-              <code className="text-xs bg-gray-100 px-2 py-1 rounded">{CONTRACT_ADDRESS}</code>
+              <span className="font-medium">Contract Address:</span>{" "}
+              <code className="text-xs bg-gray-100 px-2 py-1 rounded">
+                {CONTRACT_ADDRESS}
+              </code>
             </p>
             <p className="text-sm text-gray-500">
               Powered by TON Blockchain • Testnet Deployment

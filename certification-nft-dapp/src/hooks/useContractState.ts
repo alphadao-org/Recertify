@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useTonAddress } from '@tonconnect/ui-react';
-import { contractService } from '@/lib/contract/contractService';
-import { addressesEqual } from '@/lib/utils/address';
-import type { ContractState } from '@/types';
+import { useTonAddress } from "@tonconnect/ui-react";
+import { useCallback, useEffect, useState } from "react";
+import { contractService } from "@/lib/contract/contractService";
+import { addressesEqual } from "@/lib/utils/address";
+import type { ContractState } from "@/types";
 
 export const useContractState = () => {
   const userAddress = useTonAddress();
@@ -31,8 +31,8 @@ export const useContractState = () => {
         setIsAdmin(false);
       }
     } catch (err: any) {
-      setError(err?.message || 'Failed to fetch contract state');
-      console.error('Contract state error:', err);
+      setError(err?.message || "Failed to fetch contract state");
+      console.error("Contract state error:", err);
     } finally {
       setLoading(false);
     }

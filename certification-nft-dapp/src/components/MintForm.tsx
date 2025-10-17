@@ -1,35 +1,35 @@
-import { useState, FormEvent } from 'react';
-import { Award, Loader2 } from 'lucide-react';
-import { useContract } from '@/hooks/useContract';
-import { validateAddress } from '@/lib/utils/address';
+import { Award, Loader2 } from "lucide-react";
+import { type FormEvent, useState } from "react";
+import { useContract } from "@/hooks/useContract";
+import { validateAddress } from "@/lib/utils/address";
 
 interface MintFormProps {
   onSuccess?: () => void;
 }
 
 export const MintForm = ({ onSuccess }: MintFormProps) => {
-  const [address, setAddress] = useState('');
-  const [validationError, setValidationError] = useState('');
+  const [address, setAddress] = useState("");
+  const [validationError, setValidationError] = useState("");
   const { mint, loading, error } = useContract();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setValidationError('');
+    setValidationError("");
 
     if (!address.trim()) {
-      setValidationError('Please enter a student address');
+      setValidationError("Please enter a student address");
       return;
     }
 
     if (!validateAddress(address)) {
-      setValidationError('Invalid TON address format');
+      setValidationError("Invalid TON address format");
       return;
     }
 
     const result = await mint(address);
-    
+
     if (result.success) {
-      setAddress('');
+      setAddress("");
       onSuccess?.();
     }
   };
@@ -42,14 +42,19 @@ export const MintForm = ({ onSuccess }: MintFormProps) => {
             <Award className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Mint Certificate</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              Mint Certificate
+            </h2>
             <p className="text-sm text-gray-500">Admin only</p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="student-address" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="student-address"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Student Address
             </label>
             <input
@@ -58,7 +63,7 @@ export const MintForm = ({ onSuccess }: MintFormProps) => {
               value={address}
               onChange={(e) => {
                 setAddress(e.target.value);
-                setValidationError('');
+                setValidationError("");
               }}
               placeholder="EQ..."
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"

@@ -1,15 +1,14 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { Providers } from './providers';
-import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { Providers } from "./providers";
+import "./globals.css";
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'CertificationNFT - TON Testnet',
-  description: 'Blockchain-based certificate management system on TON',
+  title: "CertificationNFT - TON Testnet",
+  description: "Blockchain-based certificate management system on TON",
   icons: {
-    icon: '/favicon.ico',
+    icon: "https://peach-fast-clam-38.mypinata.cloud/ipfs/bafkreid4gh6axv3j62mstkpkfhosg5ofpoop6yoviwr5tydnd6bz3xnone",
   },
 };
 

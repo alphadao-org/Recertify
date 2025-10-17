@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import type { NFTMetadata, Token } from '@/types';
-import { contractService } from '@/lib/contract/contractService';
+import { useCallback, useState } from "react";
+import { contractService } from "@/lib/contract/contractService";
+import type { NFTMetadata } from "@/types";
 
 export const useMetadata = () => {
   const [loading, setLoading] = useState(false);
@@ -12,26 +12,26 @@ export const useMetadata = () => {
 
     try {
       const token = await contractService.getToken(tokenId);
-      
+
       if (!token) {
-        throw new Error('Token not found');
+        throw new Error("Token not found");
       }
 
       const uri = await contractService.getTokenUri(tokenId);
-      
+
       // Fetch metadata from URI
       const response = await fetch(uri);
       if (!response.ok) {
-        throw new Error('Failed to fetch metadata');
+        throw new Error("Failed to fetch metadata");
       }
 
       const metadata: NFTMetadata = await response.json();
 
       return { token, metadata };
     } catch (err: any) {
-      const errorMsg = err?.message || 'Failed to fetch token';
+      const errorMsg = err?.message || "Failed to fetch token";
       setError(errorMsg);
-      console.error('Metadata fetch error:', err);
+      console.error("Metadata fetch error:", err);
       throw err;
     } finally {
       setLoading(false);

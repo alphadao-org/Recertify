@@ -1,4 +1,4 @@
-import { Address } from '@ton/core';
+import { Address } from "@ton/core";
 
 export const validateAddress = (addr: string): boolean => {
   try {
@@ -10,7 +10,7 @@ export const validateAddress = (addr: string): boolean => {
 };
 
 export const formatAddress = (addr: string, short = true): string => {
-  if (!addr) return '';
+  if (!addr) return "";
   if (!short) return addr;
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 };
