@@ -1,5 +1,5 @@
-import { TonConnectButton } from "@tonconnect/ui-react";
 import { Moon, Sparkles, Sun } from "lucide-react";
+import { PurpleTonConnectButton } from "./PurpleTonConnectButton";
 
 interface HeaderProps {
   isDarkMode: boolean;
@@ -52,7 +52,7 @@ export function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                     : "bg-gradient-to-r from-purple-950 to-purple-800 bg-clip-text text-transparent"
                 }`}
               >
-                ALPHA DAO
+                RECERTIFY
               </h1>
               <Sparkles
                 className={`w-3 h-3 sm:w-3.5 sm:h-3.5 transition-colors duration-300 ${
@@ -115,7 +115,7 @@ export function Header({ isDarkMode, toggleTheme }: HeaderProps) {
               }`}
             />
             <div className="scale-90 sm:scale-100 px-1">
-              <TonConnectButton key="header-connect" />
+              <PurpleTonConnectButton />
             </div>
           </div>
         </div>
