@@ -5,6 +5,8 @@ export interface UserStats {
   points: number;
   daily_streak: number;
   claimed_task_ids: string[];
+  achievements?: string[];
+  referral_count?: number;
   last_checkin?: string; // ISO date
 }
 
@@ -22,7 +24,7 @@ export async function loadUserStats(
       .single();
 
     if (error && (error as any).code !== "PGRST116") {
-      console.warn("Supabase load error:", error);
+      console.error("Supabase load error:", error);
     }
 
     if (data) {
@@ -72,7 +74,7 @@ export async function saveUserStats(
       );
 
     if (error) {
-      console.warn("Supabase save error:", error);
+      console.error("Supabase save error:", error);
       return false;
     }
     return true;
@@ -262,7 +264,7 @@ export async function incrementReferralCount(
 
     return true;
   } catch (err) {
-    console.warn("incrementReferralCount error:", err);
+    console.error("incrementReferralCount error:", err);
     return false;
   }
 }
