@@ -51,8 +51,8 @@ export default function Leaderboard() {
                 <button
                     onClick={() => setActiveTab("points")}
                     className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === "points"
-                            ? "bg-blue-600 text-white shadow-blue-500/50 shadow-lg"
-                            : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                        ? "bg-blue-600 text-white shadow-blue-500/50 shadow-lg"
+                        : "bg-gray-800 text-gray-400 hover:bg-gray-700"
                         }`}
                 >
                     Top Points
@@ -60,8 +60,8 @@ export default function Leaderboard() {
                 <button
                     onClick={() => setActiveTab("referrals")}
                     className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === "referrals"
-                            ? "bg-purple-600 text-white shadow-purple-500/50 shadow-lg"
-                            : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                        ? "bg-purple-600 text-white shadow-purple-500/50 shadow-lg"
+                        : "bg-gray-800 text-gray-400 hover:bg-gray-700"
                         }`}
                 >
                     Top Referrers
